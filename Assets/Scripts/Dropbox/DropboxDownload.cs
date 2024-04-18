@@ -8,9 +8,11 @@ using Plugins.Dropbox;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using Zenject;
 
 public class DropboxDownload : MonoBehaviour
 {
+    [Inject] private LoadingBar loadingBar;
     private string Path = "";
     private IEnumerator Start()
     {
@@ -26,6 +28,7 @@ public class DropboxDownload : MonoBehaviour
     }
     IEnumerator Download()
     {
+        loadingBar.Show();
         var taskGetFiles = DropboxHelper.GetFiles(Path);
         yield return new WaitUntil(() => taskGetFiles.IsCompleted);
         if (!taskGetFiles.IsCompleted)
@@ -33,13 +36,17 @@ public class DropboxDownload : MonoBehaviour
             yield break;
         }
         var jsonObject = JsonConvert.DeserializeObject<EntriesData>(taskGetFiles.Result);
-        foreach (var VARIABLE in jsonObject.Entries)
+        for (int i = 0; i < jsonObject.Entries.Count; i++)
         {
-            if (VARIABLE.tag == "file")
+            var file = jsonObject.Entries[i];
+            if (file.tag == "file")
             {
-                yield return StartCoroutine(DownloadByName(VARIABLE.path_lower));  
+                yield return StartCoroutine(DownloadByName(file.path_lower));
+                Debug.Log(((float)i/(float)jsonObject.Entries.Count));
+                loadingBar.SetBarValue((float)i/(float)jsonObject.Entries.Count);
             }
-        };
+        }
+        loadingBar.Hide();
     }
 
     IEnumerator DownloadByName(string path)
