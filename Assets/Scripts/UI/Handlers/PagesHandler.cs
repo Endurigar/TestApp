@@ -13,7 +13,6 @@ namespace UI.Handlers
             pages = gameObject.GetComponentsInChildren<MenuPages>();
             foreach (var page in pages)
             {
-                Debug.Log(page.name);
                 page.OnPageShow += OnPageStateChanged;
             }
         }

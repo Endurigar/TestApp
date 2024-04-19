@@ -1,10 +1,9 @@
 using System.Collections;
 using System.IO;
-using Dropbox;
 using UnityEngine;
 using Zenject;
 
-namespace UI.Handlers
+namespace Dropbox
 {
     public class DownloadHandler : MonoBehaviour
     {
@@ -13,7 +12,8 @@ namespace UI.Handlers
         public IEnumerator Download(string relativePath)
         {
             yield return StartCoroutine(dropboxHandler.DownloadMod(relativePath));
-            var filePath = Path.Combine(Application.persistentDataPath, relativePath);
+            string filePath = Application.persistentDataPath + "/" + relativePath;
+            Debug.Log(filePath);
             new NativeShare().AddFile(filePath)
                 .SetSubject("DownloadedMod")
                 .SetCallback((result, shareTarget) =>

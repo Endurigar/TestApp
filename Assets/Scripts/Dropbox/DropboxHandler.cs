@@ -24,7 +24,6 @@ namespace Dropbox
 
         private IEnumerator Start()
         {
-            Debug.Log(Path);
             yield return StartCoroutine(Initialize());
             yield return StartCoroutine(DownloadConfigs());
         }

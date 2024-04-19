@@ -1,4 +1,5 @@
 using System.IO;
+using Dropbox;
 using Dropbox.Utilities;
 using TMPro;
 using UI.Handlers;
@@ -21,6 +22,7 @@ namespace UI.UiUtilities
         private string description;
         private string category;
         private string previewPath;
+        private string modPath;
 
         public string Category => category;
 
@@ -29,7 +31,7 @@ namespace UI.UiUtilities
         private void Start()
         {
             modButton = gameObject.GetComponent<Button>();
-            downloadButton.onClick.AddListener(() => StartCoroutine(downloadHandler.Download(previewPath)));
+            downloadButton.onClick.AddListener(() => StartCoroutine(downloadHandler.Download(modPath)));
             modButton.onClick.AddListener(ActivateDetailsPage);
         }
 
@@ -41,6 +43,7 @@ namespace UI.UiUtilities
             description = mod.description;
             category = mod.category;
             previewPath = mod.preview_path;
+            modPath = mod.file_path;
             titleTMP.text = Title;
             descriptionTMP.text = description;
             preview.texture = LoadPNG(Application.persistentDataPath + "/" + previewPath);
@@ -62,7 +65,7 @@ namespace UI.UiUtilities
 
         private void ActivateDetailsPage()
         {
-            detailsPage.Show(title, description, previewPath, preview.texture);
+            detailsPage.Show(title, description, previewPath,modPath, preview.texture);
         }
     }
 }

@@ -1,3 +1,4 @@
+using Dropbox;
 using TMPro;
 using UI.Handlers;
 using UnityEngine;
@@ -15,16 +16,19 @@ namespace UI.Pages
         [SerializeField] private RawImage preview;
         [Inject] private DownloadHandler downloadHandler;
         private string previewPath;
+        private string modPath;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             backButton.onClick.AddListener(PageHide);
-            downloadButton.onClick.AddListener(() => StartCoroutine(downloadHandler.Download(previewPath)));
+            downloadButton.onClick.AddListener(() => StartCoroutine(downloadHandler.Download(modPath)));
         }
 
-        public void Show(string title, string description, string previewPath, Texture preview)
+        public void Show(string title, string description, string previewPath,string modPath, Texture preview)
         {
             base.Show();
+            this.modPath = modPath;
             descriptionTMP.text = description;
             titleTMP.text = title;
             this.preview.texture = preview;
