@@ -14,18 +14,20 @@ public class CategoriesButtonsHandler : MonoBehaviour
     [SerializeField] private Sprite categoryUnactive;
     [Inject] private DropboxHandler dropboxHandler;
     private string[] categories;
-    private Button[] categoryButtons;
+    private List<Button> categoryButtons;
     private Button latestSelectedButton;
+    public Action<string> OnCategorySelected;
+    public Action<string> OnCategoryUnselected;
 
     private void Start()
     {
         dropboxHandler.OnConfigDownloaded += OnConfigDownloaded;
+        categoryButtons = new List<Button>();
     }
 
     private void OnConfigDownloaded()
     {
         categories = dropboxHandler.ModsList.categories.ToArray();
-        categoryButtons = new Button[categories.Length];
         ButtonSpawner();
     }
 
@@ -35,22 +37,27 @@ public class CategoriesButtonsHandler : MonoBehaviour
         {
             var newCategoryButton = Instantiate(categoryButton, categoriesGrid);
             newCategoryButton.transform.GetComponentInChildren<TMP_Text>().text = categories[i];
-            newCategoryButton.transform.GetComponent<CategoryButton>().OnCategorySelected += ChooseCategoryButton;
+            var categoryName = categories[i];
+            newCategoryButton.onClick.AddListener((() => ChooseCategoryButton(newCategoryButton, categoryName)));
+            categoryButtons.Add(newCategoryButton);
         }
     }
 
-    private void ChooseCategoryButton(Button SelectedButton)
+    private void ChooseCategoryButton(Button SelectedButton, string categoryName)
     {
         if (latestSelectedButton == SelectedButton)
         {
             latestSelectedButton.GetComponent<Image>().sprite = categoryUnactive;
+            OnCategoryUnselected(string.Empty);
             return;
         }
         if (latestSelectedButton != null)
         {
             latestSelectedButton.GetComponent<Image>().sprite = categoryUnactive;
+            OnCategoryUnselected(string.Empty);
         }
         latestSelectedButton = SelectedButton;
         SelectedButton.GetComponent<Image>().sprite = categoryActive;
+        OnCategorySelected(categoryName);
     }
 }

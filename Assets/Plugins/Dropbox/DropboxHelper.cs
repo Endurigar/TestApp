@@ -34,7 +34,6 @@ namespace Plugins.Dropbox
     'recursive': true
 }";
 
-
         private static string _tempRuntimeToken = null;
 
 #if UNITY_EDITOR

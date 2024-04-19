@@ -9,7 +9,7 @@ public class LoadingBar : Page
 {
     private const float Duration = 0.5f;
     [SerializeField] private Image bar;
-
+    
     public void SetBarValue(float value)
     {
         Debug.Log(value);

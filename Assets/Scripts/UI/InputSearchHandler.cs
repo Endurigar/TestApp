@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,23 +8,27 @@ namespace UI
     public class InputSearchHandler : MonoBehaviour
     {
         [SerializeField] private Button crossButton;
+        public Action<string> OnValueChanged;
         private TMP_InputField inputField;
+
+        public TMP_InputField Field => inputField;
 
         private void Start()
         {
             inputField = gameObject.GetComponent<TMP_InputField>();
-            inputField.onValueChanged.AddListener(OnValueChanged);
+            Field.onValueChanged.AddListener(ValueChanged);
             crossButton.onClick.AddListener(ClearInputField);
         }
 
-        private void OnValueChanged(string value)
+        private void ValueChanged(string value)
         {
+            OnValueChanged(value);
             crossButton.gameObject.SetActive(value != string.Empty);
         }
 
         private void ClearInputField()
         {
-            inputField.text = string.Empty;
+            Field.text = string.Empty;
         }
     }
 }

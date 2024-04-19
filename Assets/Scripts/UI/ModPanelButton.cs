@@ -12,8 +12,10 @@ public class ModPanelButton : MonoBehaviour
     [SerializeField] private TMP_Text descriptionTMP;
     [SerializeField] private TMP_Text titleTMP;
     [SerializeField] private RawImage preview;
-    private Page detailsPage;
-    private Button button;
+    [SerializeField] private Button downloadButton;
+    private DownloadHandler downloadHandler;
+    private DetailsPage detailsPage;
+    private Button modButton;
     private string title;
     private string description;
     private string category;
@@ -21,23 +23,27 @@ public class ModPanelButton : MonoBehaviour
 
     public string Category => category;
 
+    public string Title => title;
+
     private void Start()
     {
-        button = gameObject.GetComponent<Button>();
-        button.onClick.AddListener(ActivateDetailsPage);
+        modButton = gameObject.GetComponent<Button>();
+        downloadButton.onClick.AddListener(() => StartCoroutine(downloadHandler.Download(previewPath)));
+        modButton.onClick.AddListener(ActivateDetailsPage);
         
     }
 
-    public void Init(Mod mod, Page details)
+    public void Init(Mod mod, DetailsPage details, DownloadHandler downloadHandler)
     {
+        this.downloadHandler = downloadHandler;
         detailsPage = details;
         title = mod.title;
         description = mod.description;
         category = mod.category;
         previewPath = mod.preview_path;
-        titleTMP.text = title;
+        titleTMP.text = Title;
         descriptionTMP.text = description;
-        preview.texture = LoadPNG(previewPath);
+        preview.texture = LoadPNG(Application.persistentDataPath + "/" + previewPath);
     }
     private Texture2D LoadPNG(string filePath)
     {
@@ -45,9 +51,9 @@ public class ModPanelButton : MonoBehaviour
         Texture2D texture = null;
         byte[] fileData;
 
-        if (System.IO.File.Exists(filePath))
+        if (File.Exists(filePath))
         {
-            fileData = System.IO.File.ReadAllBytes(filePath);
+            fileData = File.ReadAllBytes(filePath);
             texture = new Texture2D(2, 2);
             texture.LoadImage(fileData);
         }
@@ -56,6 +62,6 @@ public class ModPanelButton : MonoBehaviour
 
     private void ActivateDetailsPage()
     {
-        detailsPage.Show();
+        detailsPage.Show(title, description, previewPath, preview.texture);
     }
 }
