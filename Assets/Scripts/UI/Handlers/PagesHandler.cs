@@ -21,7 +21,6 @@ namespace UI.Handlers
         private void OnPageStateChanged(Page page)
         {
             if (latestPage != null) latestPage.Hide();
-
             latestPage = page;
         }
     }

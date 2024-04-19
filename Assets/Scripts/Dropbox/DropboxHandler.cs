@@ -71,6 +71,10 @@ namespace Dropbox
 
         private IEnumerator DowloadPreview()
         {
+            if (!Directory.Exists(Application.persistentDataPath+"/mods"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/mods");
+            }
             foreach (var mod in ModsList.mods)
             {
                 if (File.Exists(Application.persistentDataPath + "/" + mod.preview_path)) continue;
@@ -84,6 +88,10 @@ namespace Dropbox
 
         public IEnumerator DownloadMod(string path)
         {
+            if (!Directory.Exists(Application.persistentDataPath+"/mods/files"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/mods/files");
+            }
             float currentValue = 0;
             loadingBar.ResetValue();
             loadingBar.Show();
