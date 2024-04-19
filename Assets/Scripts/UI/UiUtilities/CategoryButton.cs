@@ -11,6 +11,5 @@ namespace UI.UiUtilities
         {
             button = gameObject.GetComponent<Button>();
         }
-    
     }
 }

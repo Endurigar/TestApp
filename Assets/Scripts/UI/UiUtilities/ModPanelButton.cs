@@ -31,7 +31,6 @@ namespace UI.UiUtilities
             modButton = gameObject.GetComponent<Button>();
             downloadButton.onClick.AddListener(() => StartCoroutine(downloadHandler.Download(previewPath)));
             modButton.onClick.AddListener(ActivateDetailsPage);
-        
         }
 
         public void Init(Mod mod, DetailsPage details, DownloadHandler downloadHandler)
