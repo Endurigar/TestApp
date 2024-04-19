@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class CategoriesButtonsHandler : MonoBehaviour
 {
@@ -11,12 +12,19 @@ public class CategoriesButtonsHandler : MonoBehaviour
     [SerializeField] private Transform categoriesGrid;
     [SerializeField] private Sprite categoryActive;
     [SerializeField] private Sprite categoryUnactive;
-    private string[] categories = new []{"cat1","cat2","cat4","cat3"};
+    [Inject] private DropboxHandler dropboxHandler;
+    private string[] categories;
     private Button[] categoryButtons;
     private Button latestSelectedButton;
 
     private void Start()
     {
+        dropboxHandler.OnConfigDownloaded += OnConfigDownloaded;
+    }
+
+    private void OnConfigDownloaded()
+    {
+        categories = dropboxHandler.ModsList.categories.ToArray();
         categoryButtons = new Button[categories.Length];
         ButtonSpawner();
     }
@@ -27,16 +35,15 @@ public class CategoriesButtonsHandler : MonoBehaviour
         {
             var newCategoryButton = Instantiate(categoryButton, categoriesGrid);
             newCategoryButton.transform.GetComponentInChildren<TMP_Text>().text = categories[i];
-            newCategoryButton.transform.GetComponent<CategoryButton>().OnCategorySelected += Test;
+            newCategoryButton.transform.GetComponent<CategoryButton>().OnCategorySelected += ChooseCategoryButton;
         }
     }
 
-    private void Test(Button SelectedButton)
+    private void ChooseCategoryButton(Button SelectedButton)
     {
         if (latestSelectedButton == SelectedButton)
         {
-            Debug.Log("=)))");
-            SelectedButton.GetComponent<Image>().sprite = categoryUnactive;
+            latestSelectedButton.GetComponent<Image>().sprite = categoryUnactive;
             return;
         }
         if (latestSelectedButton != null)

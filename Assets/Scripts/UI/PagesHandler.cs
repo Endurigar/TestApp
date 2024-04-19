@@ -10,9 +10,10 @@ namespace UI
 
         private void Start()
         {
-            pages = gameObject.GetComponentsInChildren<Page>();
+            pages = gameObject.GetComponentsInChildren<MenuPages>();
             foreach (var page in pages)
             {
+                Debug.Log(page.name);
                 page.OnPageShow += OnPageStateChanged;
             }
         }

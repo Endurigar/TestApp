@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class CategoryButton : MonoBehaviour
 {
@@ -19,6 +20,6 @@ public class CategoryButton : MonoBehaviour
     private void CategorySelected()
     {
         OnCategorySelected(button);
-        //дальше короче всякие приколы
+        //TODO дальше короче всякие приколы
     }
 }

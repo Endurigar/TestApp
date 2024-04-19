@@ -180,7 +180,6 @@ namespace Plugins.Dropbox
             }
             else
             {
-                Debug.Log("Cool");
                 return getFilesRequest.downloadHandler.text;
                 // Save the downloaded file to the persistent data path
                 // string filePath = Application.persistentDataPath + "/" + relativePathToFile;
