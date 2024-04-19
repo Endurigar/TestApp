@@ -78,7 +78,7 @@ MonoBehaviour:
   categoryButton: {fileID: 6429007173243480895, guid: e81adc86a7186794f9a29a2f575d685e, type: 3}
   categoriesGrid: {fileID: 935684497290718365}
   categoryActive: {fileID: 21300000, guid: a8217c396ac35184997701becf6c622f, type: 3}
-  categoryUnactive: {fileID: 21300000, guid: 7d0eacfc5d09c3b4eb3521286bd56556, type: 3}
+  categoryInactive: {fileID: 0}
 --- !u!1 &3226651727159625060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,14 +1398,14 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6224385576211957350, guid: 8c9cc6dbe784ce3418dfb5bb8df954cf, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 241477610145016653}
+    - targetCorrespondingSourceObject: {fileID: 6224385576211957350, guid: 8c9cc6dbe784ce3418dfb5bb8df954cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1995691555940790441}
     - targetCorrespondingSourceObject: {fileID: 6224385576211957350, guid: 8c9cc6dbe784ce3418dfb5bb8df954cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 935684497290718365}
-    - targetCorrespondingSourceObject: {fileID: 6224385576211957350, guid: 8c9cc6dbe784ce3418dfb5bb8df954cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 241477610145016653}
     - targetCorrespondingSourceObject: {fileID: 6224385576211957350, guid: 8c9cc6dbe784ce3418dfb5bb8df954cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2469111657163767477}

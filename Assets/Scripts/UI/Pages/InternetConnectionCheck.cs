@@ -10,8 +10,9 @@ namespace UI.Pages
         private bool internetAvailable = true;
         private readonly WaitForSeconds waitTime = new(1);
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             retryButton.onClick.AddListener(OnRetryButton);
             StartCoroutine(CheckInternetConnection());
         }
