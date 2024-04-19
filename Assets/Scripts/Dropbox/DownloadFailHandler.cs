@@ -1,18 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
+using UI.Pages;
 using UnityEngine;
 
-public class DownloadFailHandler : Page
+namespace Dropbox
 {
-    public override void Show()
+    public class DownloadFailHandler : Page
     {
-        base.Show();
-        StartCoroutine(DelayForFade());
-    }
+        public override void Show()
+        {
+            base.Show();
+            StartCoroutine(DelayForFade());
+        }
 
-    private IEnumerator DelayForFade()
-    {
-        yield return new WaitForSeconds(1f);
-        Hide();
+        private IEnumerator DelayForFade()
+        {
+            yield return new WaitForSeconds(1f);
+            Hide();
+        }
     }
 }

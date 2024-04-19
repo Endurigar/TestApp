@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
-
+namespace UI.Pages
+{
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class Page : MonoBehaviour
     {
@@ -53,3 +51,4 @@ using Zenject;
                 canvasGroup = GetComponent<CanvasGroup>();
         }
     }
+}

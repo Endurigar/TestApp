@@ -1,7 +1,7 @@
-using System;
+using UI.Pages;
 using UnityEngine;
 
-namespace UI
+namespace UI.Handlers
 {
     public class PagesHandler : MonoBehaviour
     {
@@ -20,10 +20,8 @@ namespace UI
 
         private void OnPageStateChanged(Page page)
         {
-            if (latestPage != null)
-            {
-                latestPage.Hide();
-            }
+            if (latestPage != null) latestPage.Hide();
+
             latestPage = page;
         }
     }

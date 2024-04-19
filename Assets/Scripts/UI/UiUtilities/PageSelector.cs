@@ -1,7 +1,8 @@
+using UI.Pages;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.UiUtilities
 {
     public class PageSelector : MonoBehaviour
     {
