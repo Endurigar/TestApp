@@ -9,7 +9,6 @@ namespace UI.Handlers
     {
         [SerializeField] private Button crossButton;
         public Action<string> OnValueChanged;
-
         public TMP_InputField Field { get; private set; }
 
         private void Start()
